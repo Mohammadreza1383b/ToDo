@@ -1,18 +1,21 @@
 const express = require('express')
 const mysql = require('mysql')
-
+const dotenv = require('dotenv')
+dotenv.config()
 const app = express()
 app.use(express.json())
+
+console.log(process.env.Date)
+var con = mysql.createConnection({
+    host : "localhost",
+    user : "Mbagher",
+    password : "q7cam8JGxAIIMt8R",
+    database : "ToDo"
+})
 
 //this is for login and you should send in json file username and password 
 app.get('/Login' , (req , res) =>{
     
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) => {
         if (err) {
@@ -31,7 +34,7 @@ app.get('/Login' , (req , res) =>{
                         //check password
                         if (resualt[0].password == password) {
                             //password is correct 
-                            res.status(200).json({Message : "200" , userId : resualt[0].usernkumber})
+                            res.status(200).json({Message : "200" , userId : resualt[0].userId})
                         } else {
                             //password is not correct
                             res.status(302).json({Message : "302" , Descpiton : "password is not correct"})
@@ -49,12 +52,6 @@ app.get('/Login' , (req , res) =>{
 
 //this is for create account and you should send in json file username and password and itself generate userId
 app.post('/Login' , (req, res) =>{
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) => {
         if (err) {
@@ -87,13 +84,6 @@ app.post('/Login' , (req, res) =>{
 //this function return list of to do for user and API is localhost:3000/ToDoList?usernumber=<usernumber>
 
 app.get('/ToDoList' , (req , res) =>{
-    // console.log(req.query.userId);
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) =>{
         if (err) {
@@ -116,12 +106,6 @@ app.get('/ToDoList' , (req , res) =>{
 })
 // for get a todo its api is localhost:3000/ToDo?title=<title>&usernumber=usernumber that you should send title and userId
 app.get('/ToDo' , (req , res) =>{
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) =>{
         if (err) {
@@ -144,12 +128,6 @@ app.get('/ToDo' , (req , res) =>{
 
 //for add a todo in database by json file that send title and Date and Descption and usernumber
 app.post('/ToDo' , (req , res) =>{
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) =>{
         if (err) {
@@ -181,12 +159,6 @@ app.post('/ToDo' , (req , res) =>{
 //this is for edit todo by title and usernumber and api is localhost:3000/ToDo?title=<title>&usernumber=usernumber and send in json new title and description and date and usernumber
 
 app.put('/ToDo' , (req , res) =>{
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) =>{
         if (err) {
@@ -208,12 +180,6 @@ app.put('/ToDo' , (req , res) =>{
 //this is for Delete a todo by title and usernumber that send in json file 
 
 app.delete('/ToDo' , (req , res) =>{
-    var con = mysql.createConnection({
-        host : "localhost",
-        user : "Mbagher",
-        password : "q7cam8JGxAIIMt8R",
-        database : "ToDo"
-    })
 
     con.connect((err) =>{
         if (err) {
